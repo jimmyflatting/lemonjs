@@ -16,9 +16,9 @@
         "start": "node build/index.js",
         "dev": "nodemon --watch '**/*.ts' --ext ts --exec 'ts-node index.ts'",
         "test": "jest",
-        "bump:patch": "./scripts/bump-version.sh patch && git push origin main",
-        "bump:minor": "./scripts/bump-version.sh minor && git push origin main",
-        "bump:major": "./scripts/bump-version.sh major && git push origin main"
+        "bump:patch": "./.github/bump-version.sh patch && git push origin main",
+        "bump:minor": "./.github/bump-version.sh minor && git push origin main",
+        "bump:major": "./.github/bump-version.sh major && git push origin main"
     },
     "devDependencies": {
         "@types/jest": "^30.0.0",
