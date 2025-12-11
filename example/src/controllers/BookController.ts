@@ -5,7 +5,7 @@ import {
     NextFunction,
 } from '@jimmyflatting/lemonjs';
 
-export class BookController extends Controller {
+class BookController extends Controller {
     index(req?: Request, res?: Response, next?: NextFunction): string {
         this.setContext(req, res, next);
 

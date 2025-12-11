@@ -1,5 +1,5 @@
 import { Router, RequestHandler } from '@jimmyflatting/lemonjs';
-import { bookController } from '@/controllers/BookController';
+import { bookController } from '../controllers/BookController';
 
 let middleware: RequestHandler[] = [];
 
