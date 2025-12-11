@@ -1,14 +1,13 @@
 {
     "name": "@jimmyflatting/lemonjs",
     "private": false,
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "A lightweight web framework for building web applications with TypeScript and Node.js.",
     "author": "Jimmy Flatting (https://github.com/jimmyflatting)",
     "main": "build/index.js",
     "types": "build/index.d.ts",
     "files": [
         "build",
-        "example",
         "README.md"
     ],
     "scripts": {
