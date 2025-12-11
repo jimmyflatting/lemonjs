@@ -16,7 +16,6 @@
         "start": "node build/index.js",
         "dev": "nodemon --watch '**/*.ts' --ext ts --exec 'ts-node index.ts'",
         "test": "jest",
-        "publish": "npm run build && npm publish --access public",
         "bump:patch": "./scripts/bump-version.sh patch && git push origin main",
         "bump:minor": "./scripts/bump-version.sh minor && git push origin main",
         "bump:major": "./scripts/bump-version.sh major && git push origin main"

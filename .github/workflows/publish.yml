@@ -31,18 +31,28 @@ jobs:
             - name: Build package
               run: npm run build
 
-            - name: Check if version exists on npm
-              id: check-version
+            - name: Get package info
+              id: package-info
               run: |
                   PACKAGE_NAME=$(node -p "require('./package.json').name")
                   PACKAGE_VERSION=$(node -p "require('./package.json').version")
+                  echo "name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+                  echo "version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
+                  echo "Package: $PACKAGE_NAME@$PACKAGE_VERSION"
+
+            - name: Check if version exists on npm
+              id: check-version
+              run: |
+                  PACKAGE_NAME="${{ steps.package-info.outputs.name }}"
+                  PACKAGE_VERSION="${{ steps.package-info.outputs.version }}"
 
                   if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version 2>/dev/null; then
                     echo "version-exists=true" >> $GITHUB_OUTPUT
-                    echo "Version $PACKAGE_VERSION already exists on npm"
+                    echo "❌ Version $PACKAGE_VERSION already exists on npm"
+                    exit 1
                   else
                     echo "version-exists=false" >> $GITHUB_OUTPUT
-                    echo "Version $PACKAGE_VERSION does not exist on npm"
+                    echo "✅ Version $PACKAGE_VERSION does not exist on npm, ready to publish"
                   fi
 
             - name: Publish to npm
@@ -51,18 +61,33 @@ jobs:
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+            - name: Create Git Tag
+              if: steps.check-version.outputs.version-exists == 'false'
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+                  git tag "v${{ steps.package-info.outputs.version }}"
+                  git push origin "v${{ steps.package-info.outputs.version }}"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Create GitHub Release
               if: steps.check-version.outputs.version-exists == 'false'
               uses: actions/create-release@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: v${{ env.PACKAGE_VERSION }}
-                  release_name: Release v${{ env.PACKAGE_VERSION }}
+                  tag_name: v${{ steps.package-info.outputs.version }}
+                  release_name: Release v${{ steps.package-info.outputs.version }}
                   body: |
-                      Automated release for version ${{ env.PACKAGE_VERSION }}
+                      🚀 **Automated Release v${{ steps.package-info.outputs.version }}**
 
-                      ## Changes
-                      See commit messages for details.
+                      ## 📦 Published to npm
+                      ```bash
+                      npm install ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }}
+                      ```
+
+                      ## 📋 Changes
+                      ${{ github.event.head_commit.message }}
                   draft: false
                   prerelease: false
