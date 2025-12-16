@@ -1,4 +1,4 @@
-import { Router, RequestHandler } from '@jimmyflatting/lemonjs';
+import { Router, RequestHandler } from 'citron';
 import { aboutController } from '../controllers/AboutController';
 import { homeController } from '../controllers/HomeController';
 import {

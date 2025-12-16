@@ -1,9 +1,4 @@
-import {
-    Request,
-    Response,
-    RequestHandler,
-    NextFunction,
-} from '@jimmyflatting/lemonjs';
+import { Request, Response, RequestHandler, NextFunction } from 'citron';
 
 export function loggerMiddleware(
     req: Request,

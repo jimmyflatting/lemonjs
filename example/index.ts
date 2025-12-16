@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { App, Router } from '@jimmyflatting/lemonjs';
+import { App, Router } from 'citron';
 import { registerWebRoutes } from './src/routes/web';
 import { registerApiRoutes } from './src/routes/api';
 

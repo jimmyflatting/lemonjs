@@ -1,5 +1,5 @@
 {
-    "name": "lemonjs-example-app",
+    "name": "citron-example-app",
     "version": "1.0.0",
     "description": "",
     "main": "build/index.js",
@@ -13,7 +13,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@jimmyflatting/lemonjs": "file:../jimmyflatting-lemonjs-1.0.11.tgz"
+        "citron": "file:../citron-1.0.1.tgz"
     },
     "devDependencies": {
         "tsconfig-paths": "^4.2.0"

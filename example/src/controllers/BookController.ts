@@ -1,9 +1,4 @@
-import {
-    Controller,
-    Request,
-    Response,
-    NextFunction,
-} from '@jimmyflatting/lemonjs';
+import { Controller, Request, Response, NextFunction } from 'citron';
 
 class BookController extends Controller {
     index(req?: Request, res?: Response, next?: NextFunction): string {

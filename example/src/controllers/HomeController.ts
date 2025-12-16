@@ -1,4 +1,4 @@
-import { Controller } from '@jimmyflatting/lemonjs';
+import { Controller } from 'citron';
 
 class HomeController extends Controller {
     index(): string {
